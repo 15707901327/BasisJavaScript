@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function jsonpCallback(result) {
+            console.log(result);
+        }
+        var JSONP = document.createElement('script');
+        JSONP.type="text/javascript";
+        JSONP.src="http://192.168.0.178:8033/OrderFiles/2018\\20182\\201828\\103298\\bom.cxb"
+        document.getElementsByTagName("head")[0].appendChild(JSONP);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
