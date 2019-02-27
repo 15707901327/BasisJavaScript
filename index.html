@@ -14,6 +14,12 @@
       <li><a href="#create">Object.create()</a></li>
       <li><a href="#keys">Object.keys()</a></li>
     </ul>
+    <h4><a href="#loop">js循环方法</a></h4>
+    <ul class="ul-1">
+      <li><a href="#setTimeout">setTimeout</a></li>
+      <li><a href="#setInterval">setInterval</a></li>
+      <li><a href="#requestAnimationFrame">requestAnimationFrame</a></li>
+    </ul>
   </div>
   <div class="right">
     <section id="Object" class="section1">
@@ -139,6 +145,27 @@ var Square = Object.create(Object.getPrototypeOf(Shape));
           </ul>
           <strong>返回值</strong>
           <p>一个数组</p>
+        </div>
+      </section>
+    </section>
+    <section id="loop" class="section1">
+      <h4 class="title">循环方法</h4>
+      <section id="setTimeout">
+        <h4>setTimeout(code, millseconds)</h4>
+        <p>用于延时执行参数指定的代码，如果在指定的延迟时间之前，你想取消这个执行，那么直接用clearTimeout(timeoutId)来清除任务，timeoutID 是 setTimeout 时返回的；</p>
+      </section>
+      <section id="setInterval">
+        <h4>setInterval(code, millseconds)</h4>
+        <p>用于每隔一段时间执行指定的代码，永无停歇，除非你反悔了，想清除它，可以使用 clearInterval(intervalId)，这样从调用 clearInterval 开始，就不会在有重复执行的任务，intervalId 是 setInterval 时返回的；</p>
+      </section>
+      <section id="requestAnimationFrame">
+        <h4>requestAnimationFrame(code)</h4>
+        <p>一般用于动画，与 setTimeout 方法类似，区别是 setTimeout 是用户指定的，而 requestAnimationFrame 是浏览器刷新频率决定的，一般遵循 W3C 标准，它在浏览器每次刷新页面之前执行。</p>
+        <div class="content">
+          <strong>显示原理</strong>
+          <p>大多数电脑显示器的刷新频率是60Hz，大概相当于每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过显示器的重绘频率，因为即使超过那个频率用户体验也不会有提升。因此，最平滑动画的最佳循环间隔是1000ms/60，约等于16.6ms。</p>
+          <p>requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率.</p>
+          <p>而setTimeout和setInterval的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行。</p>
         </div>
       </section>
     </section>
