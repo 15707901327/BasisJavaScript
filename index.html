@@ -20,6 +20,7 @@
       <li><a href="#setInterval">setInterval</a></li>
       <li><a href="#requestAnimationFrame">requestAnimationFrame</a></li>
     </ul>
+    <h4><a href="#Deconstruction">变量的解构赋值</a></h4>
   </div>
   <div class="right">
     <section id="Object" class="section1">
@@ -167,6 +168,14 @@ var Square = Object.create(Object.getPrototypeOf(Shape));
           <p>requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率.</p>
           <p>而setTimeout和setInterval的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行。</p>
         </div>
+      </section>
+    </section>
+    <section id="Deconstruction" class="section1">
+      <h4 class="title">变量的解构赋值</h4>
+      <section>
+        <ul class="ul-3-num">
+          <li><a href="es6/DeconstructionAssignmentOfObject.html" target="_blank">对象的解构赋值</a></li>
+        </ul>
       </section>
     </section>
   </div>
