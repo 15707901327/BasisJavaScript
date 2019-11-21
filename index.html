@@ -22,6 +22,8 @@
       <li><a href="#requestAnimationFrame">requestAnimationFrame</a></li>
     </ul>
     <h4><a href="#Deconstruction">变量的解构赋值</a></h4>
+    <h4><a href="#map">Map对象</a></h4>
+    <h4><a href="#WeakMap">WeakMap对象</a></h4>
   </div>
   <div class="right">
     <section id="Object" class="section1">
@@ -186,6 +188,71 @@ var Square = Object.create(Object.getPrototypeOf(Shape));
         <ul class="ul-3-num">
           <li><a href="es6/DeconstructionAssignmentOfObject.html" target="_blank">对象的解构赋值</a></li>
         </ul>
+      </section>
+    </section>
+    <section id="map" class="section1">
+      <h4 class="title">map对象</h4>
+      <section>
+        <table border="1">
+          <tr>
+            <th>操作方法</th>
+            <th>内容描述</th>
+          </tr>
+          <tr>
+            <td>map.set(key,value)</td>
+            <td>添加键值对到映射中</td>
+          </tr>
+          <tr>
+            <td>map.set(key,value)</td>
+            <td>添加键值对到映射中</td>
+          </tr>
+          <tr>
+            <td>map.get(key)</td>
+            <td>获取映射中某一个键的对应值</td>
+          </tr>
+          <tr>
+            <td>map.delete(key)</td>
+            <td>将某一键值对移除映射</td>
+          </tr>
+          <tr>
+            <td>map.clear()</td>
+            <td>清空映射中所有键值对</td>
+          </tr>
+          <tr>
+            <td>map.entries()</td>
+            <td>返回一个以二元数组（键值对）作为元素的数组</td>
+          </tr>
+          <tr>
+            <td>map.has(key)</td>
+            <td>检查映射中是否包含某一键值对</td>
+          </tr>
+          <tr>
+            <td>map.keys()</td>
+            <td>返回一个当前映射中所有键作为元素的可迭代对象</td>
+          </tr>
+          <tr>
+            <td>map.values()</td>
+            <td>返回一个当前映射中所有值作为元素的可迭代对象</td>
+          </tr>
+          <tr>
+            <td>map.size</td>
+            <td>映射中键值对的数量</td>
+          </tr>
+        </table>
+      </section>
+    </section>
+    <section id="WeakMap" class="section1">
+      <h4 class="title">WeakMap对象</h4>
+      <section>
+        <p>WeakMap和WeakSet很相似，只不过WeakMap的键会检查变量的引用，只要其中任意一个引用被释放，该键值对就会被删除。</p>
+        <div class="content">
+          <strong>特点：</strong>
+          <ul class="ul-1">
+            <li>Map对象的键可以是任何类型，但WeakMap对象中的键只能是对象引用</li>
+            <li>WeakMap不能包含无引用的对象，否则会被自动清除出集合（垃圾回收机制）。</li>
+            <li>WeakSet对象是不可枚举的，无法获取大小。</li>
+          </ul>
+        </div>
       </section>
     </section>
   </div>
