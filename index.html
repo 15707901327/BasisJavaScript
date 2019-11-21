@@ -13,6 +13,7 @@
       <li><a href="#defineProperty">Object.defineProperty()</a></li>
       <li><a href="#create">Object.create()</a></li>
       <li><a href="#keys">Object.keys()</a></li>
+      <li><a href="#freeze">Object.freeze()</a></li>
     </ul>
     <h4><a href="#loop">js循环方法</a></h4>
     <ul class="ul-1">
@@ -80,7 +81,7 @@
           <strong>返回值</strong>
           <p>一个具有指定的内部原型且包含指定的属性（如果有）的新对象。</p>
           <strong>备注</strong>
-          <p>若要停止原型链，可以使用采用了 null prototype 参数的函数。  所创建的对象将没有原型。</p>
+          <p>若要停止原型链，可以使用采用了 null prototype 参数的函数。 所创建的对象将没有原型。</p>
           <strong>实例</strong>
           <ul class="ul-1-num">
             <li>
@@ -103,7 +104,7 @@ document.write(Object.getPrototypeOf(newObj));
               </pre>
             </li>
             <li>
-              下面的示例创建一个具有与 Object 对象相同的内部原型的对象。  您会发现，该对象具有与使用对象文本创建的对象相同的原型。
+              下面的示例创建一个具有与 Object 对象相同的内部原型的对象。 您会发现，该对象具有与使用对象文本创建的对象相同的原型。
               <pre>
 var firstLine = { x: undefined, y: undefined };
 var secondLine = Object.create(Object.prototype, {
@@ -148,6 +149,11 @@ var Square = Object.create(Object.getPrototypeOf(Shape));
           <p>一个数组</p>
         </div>
       </section>
+      <section id="freeze">
+        <h4>Object.freeze(obj)</h4>
+        <p>Object.freeze（）方法冻结对象。 冻结的对象无法再更改； 冻结对象可防止向其添加新属性，删除现有属性，防止更改现有属性的可枚举性，可配置性或可写性，并防止更改现有属性的值。
+          此外，冻结对象还可以防止更改其原型。 Frozen（）返回传入的相同对象。</p>
+      </section>
     </section>
     <section id="loop" class="section1">
       <h4 class="title">循环方法</h4>
@@ -157,16 +163,20 @@ var Square = Object.create(Object.getPrototypeOf(Shape));
       </section>
       <section id="setInterval">
         <h4>setInterval(code, millseconds)</h4>
-        <p>用于每隔一段时间执行指定的代码，永无停歇，除非你反悔了，想清除它，可以使用 clearInterval(intervalId)，这样从调用 clearInterval 开始，就不会在有重复执行的任务，intervalId 是 setInterval 时返回的；</p>
+        <p>用于每隔一段时间执行指定的代码，永无停歇，除非你反悔了，想清除它，可以使用 clearInterval(intervalId)，这样从调用 clearInterval
+          开始，就不会在有重复执行的任务，intervalId 是 setInterval 时返回的；</p>
       </section>
       <section id="requestAnimationFrame">
         <h4>requestAnimationFrame(code)</h4>
-        <p>一般用于动画，与 setTimeout 方法类似，区别是 setTimeout 是用户指定的，而 requestAnimationFrame 是浏览器刷新频率决定的，一般遵循 W3C 标准，它在浏览器每次刷新页面之前执行。</p>
+        <p>一般用于动画，与 setTimeout 方法类似，区别是 setTimeout 是用户指定的，而 requestAnimationFrame 是浏览器刷新频率决定的，一般遵循 W3C
+          标准，它在浏览器每次刷新页面之前执行。</p>
         <div class="content">
           <strong>显示原理</strong>
-          <p>大多数电脑显示器的刷新频率是60Hz，大概相当于每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过显示器的重绘频率，因为即使超过那个频率用户体验也不会有提升。因此，最平滑动画的最佳循环间隔是1000ms/60，约等于16.6ms。</p>
+          <p>
+            大多数电脑显示器的刷新频率是60Hz，大概相当于每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过显示器的重绘频率，因为即使超过那个频率用户体验也不会有提升。因此，最平滑动画的最佳循环间隔是1000ms/60，约等于16.6ms。</p>
           <p>requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率.</p>
-          <p>而setTimeout和setInterval的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行。</p>
+          <p>
+            而setTimeout和setInterval的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行。</p>
         </div>
       </section>
     </section>
