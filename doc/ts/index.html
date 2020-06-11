@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ts文档</title>
+  <link rel="stylesheet" href="../../css/base.css">
+</head>
+<body>
+<div class="header">
+  <ul class="ul_1">
+    <li class="li_1"><a href="../../index.html">首页</a></li>
+    <li class="li_1 li_heightLight"><a href="./index.html">ts概述</a></li>
+  </ul>
+</div>
+<div class="content">
+  <div class="l-r-wrapper">
+    <div class="left">
+      <h4><a href="#generic">泛型</a></h4>
+      <ul class="ul-1">
+        <li><a href="#GenericVariable">泛型变量</a></li>
+      </ul>
+      <h4><a href="#decorator">装饰器</a></h4>
+      <ul class="ul-1">
+        <li><a href="#classDecorator">类装饰器</a></li>
+        <li><a href="#propDecorator">属性装饰器</a></li>
+      </ul>
+    </div>
+    <div class="right">
+      <section id="generic" class="section1">
+        <h4 class="title">ts泛型</h4>
+        <section id="GenericVariable">
+          <h4>泛型变量</h4>
+          <pre>
+          function myfn &lt;T&gt;(args: T[]): T[] {
+              console.log(args.length)
+              return args;
+          }
+
+          function myfn2 &lt;T&gt;(args: Array&lt;T&gt;): Array &lt;T&gt; {
+              console.log(args.length);
+              return args;
+          }
+        </pre>
+        </section>
+      </section>
+      <section id="decorator" class="section1">
+        <h4 class="title">装饰器</h4>
+        <section>
+          <h4>装饰器</h4>
+          <p>装饰器是一种特殊类型的声明，本质就是一个方法，可以注入到类、方法、属性、参数扩展其功能。</p>
+          <p>装饰器是es7的标准特性之一。</p>
+          <div class="content">
+            <strong>常见装饰器</strong>
+            <p>类装饰器、属性装饰器、方法装饰器、参数装饰器等</p>
+            <strong>写法上装饰器可分为</strong>
+            <p>普通装饰器(无法传参)、装饰器工厂(可传参)</p>
+          </div>
+        </section>
+        <section id="classDecorator">
+          <h4>类装饰器</h4>
+          <div class="content">
+            <ul class="ul-1-num">
+              <li>
+                类装饰器在类声明之前被声明，应用于类构造函数，可以监视、修改、替换类的定义，传入一个参数；
+                <pre>
+                  function logClz(params:any) {
+                      console.log(params)  // class HttpClient
+                  }
+                  @logClz
+                  class HttpClient {
+                      constructor() {
+
+                      }
+                  }
+                </pre>
+                <p>logClz() 接收的参数params就是被装饰的类HttpClient</p>
+                <p>为HttpClient动态扩展属性属性和方法</p>
+                <pre>
+                  function logClz(params:any) {
+                      params.prototype.url = 'xxxx';
+                      params.prototype.run = function() {
+                          console.log('run...');
+                      };
+                  }
+                  var http:any = new HttpClient();
+                  http.run(); // run...
+                </pre>
+              </li>
+              <li>
+                装饰器工厂：闭包
+                <pre>
+                  function logClz(params:string) {
+                      console.log('params:', params);  //params: hello
+                      return function(target:any) {
+                          console.log('target:', target);  //target: class HttpClient
+                          target.prototype.url = params;  //扩展一个url属性
+                      }
+                  }
+                  @logClz('hello')
+                  class HttpClient {
+                      constructor() { }
+                  }
+                  var http:any = new HttpClient();
+                  console.log(http.url);  //hello
+                </pre>
+                <p>在使用装饰器工厂时，如果不想给装饰器传参，可以把参数声明为可选参数，但使用装饰器时仍然不能丢失小括号！</p>
+                <pre>
+                  function logClz(params?:string) {
+                      return function(target:any) { }
+                  }
+                  @logClz()
+                  class HttpClient {
+                      constructor() { }
+                  }
+                </pre>
+              </li>
+              <li>
+                重载构造函数
+                <p>类装饰器表达式会在运行时当作函数被调用，类的构造函数作为其唯一的参数；</p>
+                <p>如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明；</p>
+                <pre>
+                  function logClz(target:any) {
+                      return class extends target {
+                          url = 'change url'
+                          getData() {
+                              console.log('getData:', this.url);
+                          }
+                      }
+                  }
+                  @logClz
+                  class HttpClient {
+                      public url:string|undefined;
+                      constructor() {
+                          this.url = 'init url'
+                      }
+                      getData() {
+                          console.log(this.url);
+                      }
+                  }
+                  var http = new HttpClient();  //装饰器返回的就是HttpClient的子类，因此TS可以自动推导 http 的类型
+                  http.getData(); //getData: change url
+                </pre>
+              </li>
+              <li>
+                修改类的定义
+                <pre>
+                  function fn &lt;T extends {new(...args: any[]): {}}>(constructor: T): T {
+                      class Ps extends constructor {
+                          age: number = 20;   //扩展一个类型为number的属性age
+                      }
+                      return Ps;
+                  }
+                  @fn
+                  class Person{
+
+                  }
+                  let p:any = new Person(); //装饰之后的Person已经变成了Ps
+                  console.log(p.age)  //20
+
+                  function fn(v: number) {
+                    return function&lt;T extends {new(...args: any[]): {}}>(cst: T): T {
+                            class Ps extends cst {
+                                age: number = v;
+                            }
+                        }
+                    }
+                    @fn(10)
+                    class Person { }  //age:number = 10
+                    @fn(20)
+                    class Cat { }  //age:number = 20
+                </pre>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section id="propDecorator">
+          <h4>属性装饰器</h4>
+          <p>属性装饰器表达式会在运行时当作函数被调用，传入两个参数：</p>
+          <ul class="ul-1-num">
+            <li>对于静态成员来说是类的构造函数，对于实例成员来说是类的原型对象；</li>
+            <li>成员的名字；</li>
+          </ul>
+          <pre>
+            function logProp(params:any) {
+                return function(target:any, attr:any) {
+                    console.log(target)  // { constructor:f, getData:f }
+                    console.log(attr)  // url
+                    target[attr] = params;  //通过原型对象修改属性值 = 装饰器传入的参数
+                    target.api = 'xxxxx';  //扩展属性
+                    target.run = function() {  //扩展方法
+                        console.log('run...');
+                    }
+                }
+            }
+            class HttpClient {
+                @logProp('http://baidu.com')
+                public url:any|undefined;
+                constructor() { }
+                getData() {
+                    console.log(this.url);
+                }
+            }
+            var http:any = new HttpClient();
+            http.getData();  // http://baidu.com
+            console.log(http.api);  // xxxxx
+            http.run();  // run...
+          </pre>
+        </section>
+      </section>
+    </div>
+  </div>
+</div>
+</body>
+</html>
